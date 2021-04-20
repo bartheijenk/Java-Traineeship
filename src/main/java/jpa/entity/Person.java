@@ -1,13 +1,14 @@
 package jpa.entity;
 
-import jpa.util.Dao;
+//import jakarta.validation.Valid;
+//import jakarta.validation.constraints.NotNull;
+//import jakarta.validation.constraints.Size;
 import jpa.util.Identifiable;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
 import java.util.List;
 
 @Data @Builder @AllArgsConstructor @NoArgsConstructor
@@ -18,10 +19,15 @@ import java.util.List;
 public class Person implements Identifiable<Long> {
     @Id @GeneratedValue
     private Long id;
+
+    @NotNull
+    @Size(max = 40)
     private String name;
     private int age;
 
     @OneToMany
+    @Valid
+    @EqualsAndHashCode.Exclude
     private List<Job> jobs;
 
 }

@@ -6,8 +6,7 @@ import jpa.util.Dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import java.util.ArrayList;
+import jakarta.validation.Validator;
 import java.util.List;
 
 
@@ -15,13 +14,14 @@ public class PersonDao extends Dao<Person, Long> {
 
     private static PersonDao instance;
 
-    private PersonDao(EntityManager em) {
-        super(em);
+    public PersonDao(EntityManager em, Validator validator) {
+        super(em, validator);
     }
 
-    public static PersonDao instance(EntityManager em) {
+
+    public static PersonDao instance(EntityManager em, Validator validator) {
         if (instance == null) {
-            instance = new PersonDao(em);
+            instance = new PersonDao(em, validator);
         }
         return instance;
     }
@@ -32,6 +32,7 @@ public class PersonDao extends Dao<Person, Long> {
         em.getTransaction().commit();
     }
 
+    @SuppressWarnings("unchecked")
     public List<Job> getJobs(Long id) {
         Query query = em.createQuery("SELECT p.jobs from Person p where p.id= :id");
 

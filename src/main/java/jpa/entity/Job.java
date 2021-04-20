@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Data @Builder
 @AllArgsConstructor @NoArgsConstructor
@@ -17,6 +19,8 @@ import javax.persistence.*;
 public class Job implements Identifiable<Long> {
     @Id @GeneratedValue
     private Long id;
+    @Size(max = 40)
     private String name;
+    @NotNull
     private int hoursAWeek;
 }

@@ -1,14 +1,17 @@
 package jpa;
 
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
 import jpa.dao.JobDao;
 import jpa.dao.PersonDao;
 import jpa.entity.Job;
-import jpa.entity.Person;
 import lombok.extern.log4j.Log4j2;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
-import java.util.List;
+import java.util.Set;
 
 @Log4j2
 public class JpaApp {
@@ -21,10 +24,19 @@ public class JpaApp {
     }
 
     private void start() {
-        PersonDao personDao = PersonDao.instance(em);
-        JobDao jobDao = JobDao.instance(em);
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
 
+        PersonDao personDao = PersonDao.instance(em, validator);
+        JobDao jobDao = JobDao.instance(em, validator);
 
+        Job j = Job.builder()
+                .name("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+                .build();
+
+        jobDao.save(j);
+
+//        validator.validate()
 
         personDao.getJobs(8L).forEach(log::debug);
     }

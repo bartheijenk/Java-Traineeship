@@ -22,16 +22,16 @@
     </Appenders>
 
     <Loggers>
-        <!--<Logger name="com.example" level="ALL" additivity="true">
+        <Logger name="jpa" level="ALL" additivity="true">
             <AppenderRef ref="rollingFile"/>
-        </Logger>-->
+        </Logger>
 
-        <Logger name="org.hibernate" level="INFO"/>
+        <Logger name="org.hibernate" level="WARN"/>
 
         <!--to show binding parameter log statements:-->
-        <Logger name="org.hibernate.type.descriptor.sql" level="TRACE"/>
+<!--        <Logger name="org.hibernate.type.descriptor.sql" level="TRACE"/>-->
 
-        <Root level="DEBUG">
+        <Root level="INFO">
             <AppenderRef ref="console"/>
             <AppenderRef ref="rollingFile"/>
         </Root>
