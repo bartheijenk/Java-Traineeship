@@ -7,7 +7,7 @@
 
 
     <persistence-unit name="MySQL-jpatest">
-        <class>jpa.Person</class>
+        <class>jpa.entity.Person</class>
         <properties>
             <property name="javax.persistence.jdbc.url"
                       value="jdbc:h2:mem:test"/>
