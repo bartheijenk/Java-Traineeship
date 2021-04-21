@@ -1,6 +1,6 @@
 package jpa.entity;
 
-import jakarta.validation.groups.Default;
+import javax.validation.groups.Default;
 
 public interface ValidatedOnCreation extends Default {
 }

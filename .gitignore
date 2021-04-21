@@ -170,3 +170,5 @@ nbdist/
 
 **/target/*
 **/logs/*
+/src/test/resources/create.sql
+/src/test/resources/database.properties

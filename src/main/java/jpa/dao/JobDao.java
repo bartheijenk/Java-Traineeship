@@ -4,7 +4,7 @@ import jpa.entity.Job;
 import jpa.util.Dao;
 
 import javax.persistence.EntityManager;
-import jakarta.validation.Validator;
+import javax.validation.Validator;
 
 public class JobDao extends Dao<Job, Long> {
 

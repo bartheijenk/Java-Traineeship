@@ -2,10 +2,12 @@ package jpa.util;
 
 import javax.persistence.EntityManager;
 
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.Valid;
-import jakarta.validation.Validator;
-import jakarta.validation.groups.Default;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
+import javax.validation.Validator;
+import javax.validation.groups.Default;
+
 import lombok.extern.log4j.Log4j2;
 
 import java.lang.reflect.ParameterizedType;
@@ -23,6 +25,10 @@ public abstract class Dao<E extends Identifiable<K>, K> {
         this.validator = validator;
     }
 
+    public Dao(EntityManager em) {
+        this.em = em;
+    }
+
     public List<E> findAll() {
         return em.createNamedQuery(typeSimple() + ".findAll", E()).getResultList();
     }
@@ -32,13 +38,12 @@ public abstract class Dao<E extends Identifiable<K>, K> {
     }
 
     public void save(E e) {
-        Set<ConstraintViolation<E>> validate = validator.validate(e, Default.class);
-        if (validate.isEmpty()) {
+        try {
             em.getTransaction().begin();
             em.persist(e);
             em.getTransaction().commit();
-        } else {
-            validate.forEach(eConstraintViolation -> log.debug(eConstraintViolation.getMessage()));
+        } catch (Exception exception) {
+            log.warn(exception.getCause().getMessage());
         }
     }
 

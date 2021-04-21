@@ -1,12 +1,13 @@
 package jpa;
 
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.Validation;
-import jakarta.validation.Validator;
-import jakarta.validation.ValidatorFactory;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import jpa.dao.JobDao;
 import jpa.dao.PersonDao;
 import jpa.entity.Job;
+import jpa.entity.Person;
 import lombok.extern.log4j.Log4j2;
 
 import javax.persistence.EntityManager;
@@ -24,17 +25,22 @@ public class JpaApp {
     }
 
     private void start() {
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        Validator validator = factory.getValidator();
+//        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+//        Validator validator = factory.getValidator();
+//
+//        PersonDao personDao = PersonDao.instance(em, validator);
+//        JobDao jobDao = JobDao.instance(em, validator);
+//
+//        Job j = Job.builder()
+//                .name("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+//                .build();
+//
+//        jobDao.save(j);
 
-        PersonDao personDao = PersonDao.instance(em, validator);
-        JobDao jobDao = JobDao.instance(em, validator);
+        PersonDao personDao = PersonDao.instance(em);
 
-        Job j = Job.builder()
-                .name("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-                .build();
-
-        jobDao.save(j);
+        personDao.save(Person.builder()
+                .name("test".repeat(100)).build());
 
 //        validator.validate()
 

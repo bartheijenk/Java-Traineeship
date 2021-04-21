@@ -6,7 +6,7 @@ import jpa.util.Dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import jakarta.validation.Validator;
+import javax.validation.Validator;
 import java.util.List;
 
 
@@ -18,6 +18,16 @@ public class PersonDao extends Dao<Person, Long> {
         super(em, validator);
     }
 
+    public PersonDao(EntityManager em) {
+        super(em);
+    }
+
+    public static PersonDao instance(EntityManager em){
+        if(instance == null) {
+            instance = new PersonDao(em);
+        }
+        return instance;
+    }
 
     public static PersonDao instance(EntityManager em, Validator validator) {
         if (instance == null) {

@@ -1,7 +1,7 @@
 package jpa;
 
-import jakarta.validation.Validation;
-import jakarta.validation.Validator;
+import javax.validation.Validation;
+import javax.validation.Validator;
 import jpa.dao.PersonDao;
 import jpa.entity.Person;
 import org.junit.jupiter.api.BeforeAll;
